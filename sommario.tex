@@ -1,0 +1,98 @@
+\chapter*{Sommario} % senza numerazione
+\label{sommario}
+
+\addcontentsline{toc}{chapter}{Sommario} % da aggiungere comunque all'indice
+
+\bigskip
+% Caratteristiche generali dell'influenza
+L'influenza è una infezione respiratoria acuta causata principalmente da virus che possono
+essere divisi in due ceppi, la varietà A e la varietà B. E' una patologia stagionale,
+che si presenta spesso durante i mesi invernali (nelle zone con clima temperato) ed è presente in tutto il mondo.
+Il vettore di trasmissione principale consiste nelle goccioline di muco e saliva, contenenti il virus, che vengono prodotte
+quando una persona infetta starnutisce o tossisce. Questo la rende una malattia che si diffonde facilmente e rapidamente, 
+specialmente nel caso di zone molto affollate.I sintomi riscontrati spesso sono: febbre alta, tosse, emicrania, dolori articolari 
+e malessere generale. Normalmente, l'infezione sparisce nel giro di una settimana, senza 
+dover ricorrere a particolari cure mediche. In certe categorie a rischio però, se contratta, 
+l'influenza può degenerare e portare anche alla morte \cite{whoinfluenza_keyfacts}. 
+\bigskip
+
+% Dati generali sulle persone infettate annualmente
+Soltanto in Europa, il Centro Europeo per il controllo delle malattie (ECDC) indica come l'influenza
+stagionale causi da 4 ai 50 milioni di ammalati e circa 15000-70000 morti annuali a causa dell'infezione \cite{ecdc_keyfacts}.
+Globalmente, il numero di decessi a causa dell'influenza è di circa da 250000 a 500000 persone all'anno \cite{whoinfluenza_keyfacts}.  
+In Italia l'influenza colpisce mediamente ogni anno l'8\% della popolazione \cite{epicentro}.
+Le categorie più colpite sono sopratutto le fasce di popolazione in età pediatrica (0-4 anni e 5-14 anni)
+con un incidenza cumulativa che descresce con l'aumentare dell'età. I casi severi e le complicanze
+sono più frequenti nei soggetti al di sopra dei 65 anni di età, oppure con condizioni di rischio
+ad esempio malattie cardiovascolari, respiratorie o immunitarie \cite{epicentro}.  
+\bigskip
+
+% Problemi legati all'influenza e spesa associata
+Essendo una patologia che può colpire la maggior parte della popolazione, essa è considerata
+un grave rischio per la sanità pubblica e per la collettività. Si stima che nei paesi industrializzati,
+epidemie influenzali possono generare alti livelli di assenteismo, sia lavorativo che scolastico,
+e una riduzione della produttività \cite{whoinfluenza_keyfacts}. 
+In Italia, uno studio ha stimato il costo totale delle epidemie influenzali nel periodo 1999-2008
+cha varierebbe da 15 a 20 miliardi di euro \cite{PLLai2011}. La durata media di assenza dal posto di lavoro a causa
+dell'influenza è di circa 4,8 giorni. Inoltre, i costi diretti in media sono di circa 330 euro a persona
+(visite, diagnostica, farmaci) e possono salire a circa 3000-6000 euro in caso di ricovero ospedaliero.
+I costi sociali indiretti (inattività scolastica o lavorativa) ammontano invece a 1000 euro a persona \cite{Sessa2005}.
+\bigskip
+
+% Monitoraggio attività influenzali
+Attualmente, l'attività dei virus influenzali viene monitorata da alcuni centri facenti
+parte del Global Influenza Surveillance and Response System (GISRS), un network di sorveglianza globale
+sponsorizzato dall'WHO. Questi centri forniscono: informazioni sugli attuali ceppi circolanti, indicazioni
+per la produzione dei vaccini antiinfluenzali (su quali varietà focalizzarsi) ed esaminano e conservano
+campioni dei virus per scopi di ricerca \cite{whoinfluenza_surveillance}.
+\bigskip
+
+Per quanto riguarda l'Italia, il Centro di Controllo delle Malattie (CCM) del Ministero della Salute sostiene
+che un componente fondamentale per il controllo dell'influenza (sia epidemica che pandemica) è la sorveglianza.
+Nel nostro paese esistono già programmi di monitoraggio dei livelli di ILI (Influenza-Like Illness), come 
+InfluNet. Influnet è il sistema nazionale di sorveglianza epidemiologica e virologica; il suo compito è quello di
+stimare l'incidenza settimanale della sindrome influenzale (avvalendosi di dati raccolti da medici sentinella disseminati
+su tutto il territorio nazionale), in modo da rilevare la durata e l'intensità dell'epidemia \cite{influnet}. Durante la 
+stagione invernale vengono pubblicati anche dei bollettini settimanali, tramite il servizio FluNews, che illustrano 
+l'evoluzione della situazione italiana \cite{influnet_bollettini}. Questi dati vengono anche condivisi sia con il WHO che con 
+ECDC.
+\bigskip
+
+% Monitoraggio attivo
+InfluNet fornisce informazioni molto importanti riguardo all'incidenza delle patologie influenzali sulla popolazione
+italiana, però i dati vengono spesso pubblicati con molto ritardo (in media 2 settimane) rispetto all'arco di tempo che 
+descrivono. Per attuare azioni efficaci e coordinare la ditribuzione di materiale sanitario, produzione di vaccini etc. è 
+necessario avere immediatamente a portata di mano dei dati sulla situazione.  
+\bigskip
+
+% Precedenti lavori.
+Ci sono stati diversi sforzi per tentare di prevedere o stimare i livelli di incidenza di ILI all'interno della popolazione,
+sfruttando fonti di dati non covenzionali (cioè non direttamente le informazioni mediche che, come sappiamo, arrivano con un 
+certo ritardo) \cite{McIver2014, Hickmann2015, googleflutrends, Signorini2011}. Normalmente, i dati che vengono sfruttati 
+maggiormente sono quelli prodotti dai social media, ad esempio: messaggi di Twitter \cite{Signorini2011}, page view di 
+Wikipedia \cite{McIver2014, Hickmann2015} e keywords di ricerca di Google \cite{googleflutrends}. Da questi studi emerge che 
+attraverso l'utilizzo di tecniche di machine learning è possibile arrivare a delle stime dei livelli di ILI all'interno della 
+popolazione, con settimane di anticipo rispetto ai metodi tradizionali.
+\bigskip
+
+% Obbiettivo tesi
+L'obbiettivo di questa tesi è cercare di replicare, per quanto possibile, le tecniche dei lavori precedentemente citati, per
+controllare se anche nella nostra penisola sia possibile effettuare, attraverso tecniche di machine learning, un'analisi
+attiva per la sorveglianza della diffusione di malattie influenzali. Lo studio più promettente riguarda l'utilizzo delle
+page view di Wikipedia per stimare il numero di malati settimanali negli Stati Uniti \cite{McIver2014}, esso quindi verrà
+utilizzato come base per invece il presente lavoro. 
+\bigskip
+
+% Descrizione capitoli
+Il Capitolo 1 fornisce una descrizione più dettagliata dei dati che sono stati utilizzati in questo progetto
+(page view di Wikipedia e bollettini di InfluNet). Inoltre, si definiscono anche i metodi usati per l'analisi degli stessi e 
+alcune informazioni statistiche sulla composizione del dataset.
+Nel Capitolo 2 vengono descritti i metodi di machine learning che sono stati selezionati per procedere alla creazione
+del modello predittivo finale.
+Il Capitolo 3 e il Capitolo 4 presentano rispettivamente: i risultati dell'esperimento e le riflessioni finali su quello che
+gli esperimenti hanno evidenziato.
+\newpage
+
+
+
+
