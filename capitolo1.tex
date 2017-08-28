@@ -1,2 +1,32 @@
 \chapter{Metodi}
+
+\section{Definizione del problema}
+
+L'incidenza della patologia influenzale in Italia può essere rappresentata tramite un semplice grafico, in cui, sull'asse $x$ 
+vengono indicate le settimane in cui sono stati raccolti i dati e sull'asse $y$ viene indicato il numero di malati registrati
+in quella settimana.
+
+%% Esempio della patologia influenzale (grafico)
+
+In base a questa descrizione, il problema che andremo a risolvere viene detto di \textit{regressione lineare}, cioè stiamo 
+cercando una relazione funzionale tra più variabili misurate. Più formalmente, con \textit{regressione lineare} si intende
+la modellazione di una relazione tra una variabile dipendente $Y$ e una serie di variabili indipendenti $X$. 
+\bigskip
+
+Dato un dataset $\{ y_i, x_1i, x_2i,\ldots, x_ni\}^n_i$, la regressione lineare assume che la relazione che intercorre tra la 
+variabile dipendente $y_i$ e la variabili indipendenti ${x_1i, x_2i,\ldots, x_ni}$ sia lineare. La relazione viene modellata
+anche attraverso un variabile aleatoria $\epsilon$ che aggiunge del rumore alla dipendenza tra la variabile indipendente e i 
+regressori. Il modello si presenta alla fine come:
+\begin{equation}
+y_i = \sum_{j=0}^k x_j \cdot \beta_j + \epsilon = \bm{x^{T}\cdot\beta}+\epsilon \qquad i=0,1,2,\ldots ,n
+\end{equation}
+
+In questo caso, stiamo cercando una relazione che colleghi il numero di page 
+view di Wikipedia di specifiche voci (ogni voce corrisponde ad una delle $k$ variabili indipendenti) ai livelli di incidenza 
+del virus influenzale misurati in Italia (le nostre variabili dipendenti $y$).  
+
+\section{Linear Model}
+
+\section{Generalized Linear Model}
+
 \newpage
