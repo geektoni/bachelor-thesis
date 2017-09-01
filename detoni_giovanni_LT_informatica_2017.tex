@@ -23,7 +23,11 @@
 \usepackage{titlesec} % per formato custom dei titoli dei capitoli
 \usepackage[strings]{underscore} % evita errori di bibtex in caso di caratteri underscore
 \usepackage{amsfonts} % mathbb
+\usepackage{amsmath} % align environment
 \usepackage{bm} % bold mathematical symbols
+\usepackage{graphicx} % images
+\graphicspath{{graphs/}} % images global path
+\setlength{\parindent}{0pt} % remove paragraph indent all over the thesis
 
 %%%%%%%%%%%%%%
 % supporto lettere accentate
@@ -78,8 +82,7 @@
     % indice
     \tableofcontents
     \clearpage
-    
-    
+       
           
     % gruppo per definizone di successione capitoli senza interruzione di pagina
     \begingroup
@@ -125,8 +128,8 @@
       % \input oppure \include
       %
       \input{capitolo1}
-      \input{capitolo2}
-      \input{capitolo3}
+      %\input{capitolo2}
+      %\input{capitolo3}
       %\input{capitolo4}
       
       
