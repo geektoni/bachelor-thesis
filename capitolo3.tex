@@ -4,33 +4,101 @@
 \section{Risultati del modello lineare}
 \bigskip
 
-Per valutare le performance del modello lineare, oltre all'\textit{errore quadratico medio} abbiamo cercato di misurare con
-che precisione il modello tende a predire il picco influenzale, cioè la settimana con la massima incidenza della patologia 
-nella popolazione italiana. Come si può notare dalla tabella \ref{tab:linear_model}, nella metà delle stagioni influenzali, 
-il modello lineare predice il picco influenzale entro una settimana indicata dai dati InfluNet, inoltre nelle stagioni 
-2008-2009, 2011-2012 e 2014-2015 il picco è previsto correttamente). Negli altri quattro casi il modello lineare tende ad 
-anticipare la settimana del picco (stagioni 2010-2011, 2013-2014).
+Per valutare le performance del modello lineare, oltre ai sistemi classici come l'\textit{errore quadratico medio}, abbiamo 
+cercato di misurare con che precisione il modello tende a predire il picco influenzale, cioè la settimana con la massima 
+incidenza della patologia nella popolazione italiana. Come si può notare dalla tabella \ref{tab:models_results}, nella metà 
+delle stagioni influenzali il modello lineare predice il picco entro una settimana indicata dai dati InfluNet; inoltre, nelle 
+stagioni 2008-2009, 2011-2012 e 2014-2015 il picco è previsto correttamente. Negli altri quattro casi il modello lineare 
+tende ad anticipare la settimana del picco (stagioni 2007-2008, 2010-2011 e 2013-2014).
 \bigskip
 
 Il modello lineare possiede una buona capacità predittiva anche nel caso della stagione influenzale 2009-2010, che fu 
-particolarmente grave a causa della diffusione del virus H1N1. Il picco influenzale in questo caso è spostato verso le ultime
-settimane del 2009 (dalla numero 42 alla 52) e non corrisponde a l'andamento dei classico della patologia influenzale (si 
-nota molto bene da \ref{fig:ch_2_ILI_levels}). Inoltre, quell'anno c'era stata una grande copertura mediatica riguardo 
-all'epidemia, cosa che avrebbe potuto in qualche modo aggiungere rumore ai dati del dataset. Nonostante ciò, il modello riesce a prevedere il picco della stagione correttamente (con uno scarto di una settimana).
+particolarmente grave a causa della diffusione di un epidemia causata dalla varietà H1N1 del virus influenzale. Il picco in 
+questo caso è spostato verso le ultime settimane del 2009 (dalla numero 42 alla 52) e non corrisponde a l'andamento dei 
+classico della patologia (si nota molto bene dalla figura \ref{fig:ch_2_ILI_levels}). Inoltre, quell'anno c'era stata una 
+grande copertura mediatica riguardo all'epidemia, cosa che avrebbe potuto in qualche modo aggiungere rumore ai dati del 
+dataset. Nonostante ciò, il modello riesce a prevedere il picco della stagione correttamente (con uno scarto di una 
+settimana).
 \bigskip
 
-Abbiamo anche analizzato quale feature siano più importanti per la previsione dei valori di incidenza. Ci siamo soffermati su 
+Abbiamo anche analizzato quali feature siano più importanti per la previsione dei valori di incidenza. Ci siamo soffermati su 
 quelle voci di Wikipedia che sono presenti più volte in tutti i modelli e quali di esse avessero il più grande peso 
-associato. La tabella \ref{tab:linear_model_feature} mostra le prime 5 feature con peso medio maggiore. Come si può notare, 
-sono voci di Wikipedia legate ai sintomi influenzali (inoltre, la voce con più alto peso medio riguarda la patologia 
-\textit{Febbre}). Questo sembra confermare la nostra ipotesi iniziale: la popolazione italiana, durante la stagione 
-influenzale, naviga su internet alla ricerca di informazioni sull'influenza, in particolare i sintomi. 
+associato. Attraverso l'utilizzo di LASSO abbiamo potuto ridurre considerevolmente il numero di feature che effettivamente 
+giocano un ruolo nella previsione dell'incidenza, infatti, da 470 feature i modelli ne andavano 
+ad utilizzare in media 111 (con utilizzare si intende che veniva assegnato loro un peso $\beta_i \neq 0$). 
 \bigskip
 
-Prendendo ad esempio la stagione influenzale 2012-2013, come ci mostra la figura \ref{fig:ch_3_correlation}, si può notare 
-come il numero di visite ad alcune voci di Wikipedia inizi ad aumentare esattamente durante il periodo in cui anche 
-l'incidenza della patologia influenzale aumenta.
+La tabella \ref{tab:models_features} mostra le prime 5 feature con peso medio maggiore e in quanti modelli 
+esse siano presenti. Come si può notare, sono voci di Wikipedia legate ai sintomi influenzali (la voce con più alto 
+peso medio riguarda la patologia \textit{Febbre}). Poiché quasi nel 100\% dei modelli abbiamo le stesse feature, e poiché 
+esse danno il contributo più grande nel determinare il livello di incidenza influenzale, possiamo supporre che anche 
+l'andamento delle pageview di queste voci rispecchi l'andamento dei dati InfluNet e che quindi pageview ed InfluNet siano in 
+qualche modo correlati.
 \bigskip
+
+Questa relazione è facilmente visibile ad esempio nella stagione influenzale 2012-2013, come ci mostra la figura 
+\ref{fig:ch_3_correlation_linear}. Se osserviamo l'andamento delle pageview di alcune delle voci della tabella 
+\ref{tab:models_features} rispetto all'incidenza ILI, si può notare come il loro valore inizi ad aumentare esattamente 
+nello stesso periodo in cui anche l'incidenza della patologia aumenta. Questa relazione si può osservare anche nelle stagioni influenzali 2009-2010 e 2011-2012.
+\bigskip
+
+Per verificare che questa relazione tra le pageview e l'incidenza ILI in Italia si presenti solo con pagine legate all'ambito 
+medico, in particolare con pagine legate alla patologia influenzale, abbiamo provato ad 
+utilizzare il dataset formato da voci estratte casualmente da Wikipedia per allenare il modello lineare, con le stesse 
+modalità con cui abbiamo usato quello reale. Come ci aspettavamo, utilizzando le pagine casuali, il modello non riesce ad 
+effettuare previsioni coerenti con InfluNet. In certe stagioni influenzali, il modello non riesce neppure a convergere ad una 
+soluzione e molto spesso alla quasi totalità delle 470 feature non viene assegnato nessun peso $\beta_i$ diverso da zero. Ciò 
+significa che probabilmente non esiste una relazione lineare tra le pageview del dataset casuale con l'incidenza InfluNet, a 
+differenza di ciò che accade con il dataset formato da pagine di categoria medica.
+\bigskip
+
+Osservando i grafici successivi (figura \ref{fig:appendix_linear}), si osserva come il modello lineare sia più efficace 
+nelle stagioni influenzali che vanno dalla 2008-2009 fino alla 2012-2014, mentre si comporta relativamente peggio nelle 
+stagioni 2007-2008, 2014-2015 e 2015-2016. Le basse prestazioni negli ultimi possono essere spiegati nel seguente modo: 
+\begin{itemize}
+\item Nel caso della stagione 2007-2008, alcune delle voci utilizzate dal modello non erano ancora ancora presenti come 
+pagine di Wikipedia, quindi il valore delle pageview settimanali per la stagione 2007-2008 per queste feature non è 
+disponibile. Infatti, su 470 feature, 184 sono "nulle", mentre delle 51 feature utilizzate dal modello 18 di queste hanno 
+valori sempre uguali a zero nel dataset che copre l'arco di tempo 2007-2008. Probabilmente, a causa di ciò il modello ha 
+stimato valori di incidenza ILI più bassi del normale, poichè non aveva sufficienti informazioni per dare una previsione 
+corretta;
+\item Nel caso delle stagioni 2014-2015 e 2015-2016, la causa può essere imputata principalmente alla mancanza di una 
+variazione significativa dei valori delle pageview per le voci selezionate dal modello. In sostanza, a differenza del 
+2012-2013, in cui l'andamento delle voci seguiva quello dell'incidenza ILI, nel 2014-2015 e 2015-2016 ciò non succede. 
+Questo potrebbe essere causato dalla mancanza nel dataset di informazioni riguardanti gli accessi tramite dispositivi mobile 
+che, se aggiunte, potrebbero migliorare le prestazioni. Infatti, da maggio 2015 il numero delle visite alle pagine di 
+Wikipedia effettuate da dispositivi mobile ha superato il numero delle visite effettuate da desktop
+\cite{wikipedia_mobile_desktop}.
+\end{itemize}
+\bigskip
+
+\section{Risultati del modello di Poisson}
+\bigskip
+
+Nonostante nel paper di riferimento \cite{McIver2014} l'utilizzo di un modello generalizzato si sia rivelato efficiente e 
+adatto a stimare i livelli di ILI, per l'Italia il modello di Poisson non ha mostrato significativi miglioramenti rispetto al 
+modello lineare, anzi in certi casi ha mostrato un significativo calo di prestazioni. Come mostra la tabella 
+\ref{tab:models_results}, pur riuscendo a stimare il picco influenzale (con uno scarto di una settimana) in cinque 
+stagioni su nove, il modello tende in alcuni casi a sovrastimare in maniera abbondante l'incidenza del picco.
+\bigskip
+
+Riguardo invece alle feature utilizzate, osservando la tabella \ref{tab:models_features}, si nota come il modello di 
+Poisson tenda a dare maggior peso a voci di Wikipedia che poco hanno a che fare con i sintomi della patologia influenzale. 
+Inoltre, i pesi assegnati hanno un entità molto minore rispetto a quelli del modello lineare. Inoltre  
+l'andamento delle feature rispetto al valore dell'incidenza ILI non ha una corrispondenza così netta come nel caso del 
+modello lineare (figura \ref{fig:ch_3_correlation_poisson}).
+\bigskip
+
+Il modello di Poisson è anche poco resistente agli outliers presenti nel dataset di Wikipedia. Infatti, come si nota dai 
+grafici in figura \ref{fig:appendix_poisson}, nella quarantacinquesina settimana del 2010, nella sesta settimana del 2011 e 
+nella terza e nona settimana del 2014, il modello stima dei valori di incidenza ILI molto alti rispetto al modello lineare.
+Questi sono per lo più causati da voci di Wikipedia che in quelle specifiche settimane hanno ricevuto un totale di visite
+che si discosta in maniera evidente dalla loro media settimanale (probabilmente a causa di alcuni bot).
+\bigskip  
+
+Anche per il modello di Poisson abbiamo provato ad utilizzare il dataset composto da voci causali e i risultati sono stati 
+gli stessi di quelli ottenuti con il modello lineare. Il modello generalizzato non riesce a prevedere con sufficiente 
+accuratezza ne i picchi influenzali e ne il normale andamento dell'incidenza ILI se vengono utilizzate pagine casuali. 
 
 \begin{table}[p]
 \centering
@@ -38,7 +106,8 @@ l'incidenza della patologia influenzale aumenta.
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 \rowcolor[HTML]{EFEFEF} 
-\textbf{Stagione Influenzale} & \textbf{Picco InfluNet (Settimana)} & \textbf{Picco ML (Settimana)} & \textbf{Picco Influnet} & \textbf{Picco ML} & \textbf{MSE}   \\ \hline
+\textbf{Stagione Influenzale} & \textbf{Picco InfluNet (Settimana)} & \textbf{Picco M (Settimana)} & \textbf{Picco Influnet} & \textbf{Picco M} & \textbf{MSE}   \\ \hline
+\multicolumn{6}{|c|}{\cellcolor[HTML]{EFEFEF}Modello Lineare} \\ \hline
 \textit{2007-2008}            & \textit{5}                          & \textit{1}                    & \textit{7.21}           & \textit{1.64}     & \textit{11.00} \\ \hline
 \rowcolor[HTML]{FFFFFF} 
 \textit{2008-2009}            & \textit{4}                          & \textit{4}                    & \textit{8.23}           & \textit{6.64}     & \textit{4.43}  \\ \hline
@@ -56,55 +125,8 @@ l'incidenza della patologia influenzale aumenta.
 \textit{2014-2015}            & \textit{4}                          & \textit{4}                    & \textit{10.87}          & \textit{5.11}     & \textit{7.18}  \\ \hline
 \rowcolor[HTML]{FFFFFF} 
 \textit{2015-2016}            & \textit{8}                          & \textit{5}                    & \textit{6.14}           & \textit{5.59}     & \textit{2.55}  \\ \hline
-\end{tabular}
-\end{adjustbox}
-\caption{\textit{Tabella indicante l'MSE e le varie informazioni sui picchi influenzali nelle varie stagioni. Con la sigla IN si intende il valore indicato dai dati InfluNet, mentre con ML si indica il valore predetto dal modello lineare.}}
-\label{tab:linear_model}
-\end{table}
-\bigskip
-
-\begin{table}[p]
-\centering
-\begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{|l|l|l|}
-\hline
 \rowcolor[HTML]{EFEFEF} 
-\textbf{Feature}                            & \textbf{Peso Medio} & \textbf{Modelli in cui è presente} \\ \hline
-\textit{Febbre}                             & \textit{13.11}      & \textit{9/9}                                            \\ \hline
-\textit{Influenza}                          & \textit{4.71}       & \textit{9/9}                                            \\ \hline
-\textit{Bronchite}                          & \textit{4.64}       & \textit{9/9}                                            \\ \hline
-\textit{Influenzavirus\_A\_sottotipo\_H1N1} & \textit{3.98}       & \textit{8/9}                                            \\ \hline
-\textit{Polipnea}                           & \textit{3.01}       & \textit{9/9}                                            \\ \hline
-\end{tabular}
-\end{adjustbox}
-\caption{\textit{Tabella indicante le prime 5 feature ordinate per il loro peso medio e in quanti modelli essi compaiano.}}
-\label{tab:linear_model_feature}
-\end{table}
-
-\begin{figure}[p]
-\includegraphics[width=\textwidth]{chapter_3_correlation}
-\caption{\textit{Variazione del valore di alcune feature rispetto all'incidenza ILI (i valori per essere comparati sono stati normalizzati nell'intervallo [0,1]).}}
-\label{fig:ch_3_correlation}
-\centering
-\end{figure}
-
-\section{Risultati del modello di Poisson}
-
-Nonostante nel paper di riferimento l'utilizzo di un modello generalizzato si sia rivelato efficiente e adatto a stimare i livelli di ILI negli Stati Uniti, per l'Italia il modello di Poisson non ha mostrato significativi miglioramenti rispetto al modello lineare, anzi in certi casi ha mostrato un significativo calo di prestazioni. Come mostra la tabella \ref{tab:ch_3_poisson_model}, pur riuscendo a stimare il picco influenzale (con uno scarto di una settimana) in cinque stagioni su nove, in alcuni casi il modello sovrastima in maniera abbondante l'incidenza del picco. Ad esempio, nella stagione influenzale 2009-2010 la sovrastima è particolarmente evidente.
-\bigskip
-
-Riguardo alle feature utilizzate, osservando la tabella \ref{tab:ch_3_poisson_model_feature}, si nota come il modello di Poisson tenda a dare maggior peso a voci di Wikipedia che poco anno a che fare con i sintomi della patologia influenzale. Inoltre, i pesi assegnati hanno un entità molto minore rispetto a quelli del modello lineare. Osservando inoltre l'andamento delle feature rispetto al valore dell'incidenza ILI si può notare come non ci sia una corrispondenza così netta come nel caso del modello lineare (figura \ref{fig:ch_3_correlation_poisson}).
-\bigskip
-
-\section{Conclusioni}
-
-\begin{table}[p]
-\centering 
-\begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\rowcolor[HTML]{EFEFEF} 
-\textbf{Stagione Influenzale} & \textbf{Picco InfluNet (Settimana)} & \textbf{Picco ML (Settimana)} & \textbf{Picco Influnet} & \textbf{Picco ML} & \textbf{MSE}      \\ \hline
+\multicolumn{6}{|c|}{\cellcolor[HTML]{EFEFEF}Modello di Poisson} \\ \hline
 \textit{2007-2008}            & \textit{5}                          & \textit{1}                    & \textit{7.21}           & \textit{1.01}     & \textit{13.02}    \\ \hline
 \rowcolor[HTML]{FFFFFF} 
 \textit{2008-2009}            & \textit{4}                          & \textit{4}                    & \textit{8.23}           & \textit{5.78}     & \textit{3.31}     \\ \hline
@@ -124,17 +146,27 @@ Riguardo alle feature utilizzate, osservando la tabella \ref{tab:ch_3_poisson_mo
 \textit{2015-2016}            & \textit{8}                          & \textit{7}                    & \textit{6.14}           & \textit{5.23}     & \textit{2.64}     \\ \hline
 \end{tabular}
 \end{adjustbox}
-\caption{\textit{Tabella indicante l'MSE e le varie informazioni sui picchi influenzali nelle varie stagioni. Con la sigla IN si intende il valore indicato dai dati InfluNet, mentre con ML si indica il valore predetto dal modello lineare.}}
-\label{tab:ch_3_poisson_model}
+\caption{\textit{Tabella indicante l'MSE e varie informazioni sui picchi influenzali nelle varie stagioni. Con la sigla IN si intende il valore indicato dai dati InfluNet, mentre con M si indica il valore predetto dai modelli.}}
+\label{tab:models_results}
 \end{table}
+\bigskip
 
 \begin{table}[p]
-\centering 
+\centering
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|l|l|l|}
 \hline
-\rowcolor[HTML]{C0C0C0} 
-{\color[HTML]{000000} \textbf{Feature}}         & {\color[HTML]{000000} \textbf{Peso Medio}} & {\color[HTML]{000000} \textbf{Modelli in cui è presente}} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Feature}                            & \textbf{Peso Medio} & \textbf{Modelli in cui è presente} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\multicolumn{3}{|c|}{\cellcolor[HTML]{EFEFEF}Modello Lineare} \\ \hline
+\textit{Febbre}                             & \textit{13.11}      & \textit{9/9}                                            \\ \hline
+\textit{Influenza}                          & \textit{4.71}       & \textit{9/9}                                            \\ \hline
+\textit{Bronchite}                          & \textit{4.64}       & \textit{9/9}                                            \\ \hline
+\textit{Influenzavirus\_A\_sottotipo\_H1N1} & \textit{3.98}       & \textit{8/9}                                            \\ \hline
+\textit{Polipnea}                           & \textit{3.01}       & \textit{9/9}                                            \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\multicolumn{3}{|c|}{\cellcolor[HTML]{EFEFEF}Modello di Poisson} \\ \hline
 \textit{Pagina principale}                      & \textit{0.52}                              & \textit{9/9}                                              \\ \hline
 \textit{Febbre ricorrente}                      & \textit{0.07}                              & \textit{9/9}                                              \\ \hline
 \textit{Vaccino per la febbre tifoide}          & \textit{0.06}                              & \textit{2/9}                                              \\ \hline
@@ -142,9 +174,62 @@ Riguardo alle feature utilizzate, osservando la tabella \ref{tab:ch_3_poisson_mo
 \textit{Virus dell'encefalite di Murray Valley} & \textit{0.05}                              & \textit{2/9}                                              \\ \hline
 \end{tabular}
 \end{adjustbox}
-\caption{\textit{Tabella indicante l'MSE e le varie informazioni sui picchi influenzali nelle varie stagioni. Con la sigla IN si intende il valore indicato dai dati InfluNet, mentre con ML si indica il valore predetto dal modello lineare.}}
-\label{tab:ch_3_poisson_model_feature}
+\caption{\textit{Tabella indicante le feature utilizzate dai modelli ordinate per il loro peso medio.}}
+\label{tab:models_features}
 \end{table}
+
+
+\section{Conclusioni}
+\bigskip
+
+La nostra ipotesi iniziale può considerarsi parzialmente confermata da questi esperimenti. 
+I risultati espressi precedentemente mostrano come l'analisi e la stima dell'incidenza influenzale in Italia sia possibile. 
+Wikipedia è infatti una fonte di dati ed informazioni affidabile che ci permette di stimare con un certo grado di 
+accuratezza la percentuale di popolazione che verrà colpita dalla patologia. Questi dati sono inoltre liberamente e 
+facilmente accessibili ed in un formato facile da analizzare. Tutte queste caratteristiche permettono di poter produrre delle 
+stime di incidenza ILI in Italia in brevissimo tempo, senza incorrere in quelle due-tre settimane di ritardo che i metodi 
+tradizionali di InfluNet comportano. Questo approccio potrebbe essere utilizzato anche per prevedere l'incidenza di altre malattie, sarebbe sufficiente analizzare il traffico su altre voci di Wikipedia, inerenti al morbo di interesse.
+\bigskip
+
+Il modello lineare ha evidenziato come esista una relazione tra le pageview delle voci di Wikipedia (che descrivono sintomi e 
+caratteristiche della patologia influenzale) e i dati di incidenza della malattia forniti da InfluNet. Tutto questo pur 
+analizzando un sistema (quello italiano) che presenta sostanziali differenze rispetto al sistema delineato dallo studio di 
+riferimento per questo progetto. Infatti, Wikipedia nella versione inglese possiede un numero maggiore di voci legate 
+all'ambito \textit{Influenza} e un volume molto maggiore di traffico sulle varie pagine (che riduce l'eventuale rumore 
+causato visite "non umane").   
+\bigskip
+
+Ovviamente, ci sono diverse migliorie che si potrebbero attuare per rendere più efficace il nostro approccio, che però 
+lasceremo per sviluppi futuri. Come prima cosa sarà necessario incorporare nel dataset di Wikipedia i dati riguardanti gli 
+accessi effettuati da dispositivi mobile. Come già affermato nei capitoli precedenti, nei dati utilizzati per questo progetto 
+essi non sono stati considerati. Fortunatamente, negli ultimi due anni Wikipedia si è attivata per fornire dei dataset più 
+rifiniti di quelli che attualmente possiede per l'intervallo 2007-2016. Infatti, essa ha iniziato a offrire dataset sempre più 
+precisi, che comprendono: le visite effettuate da mobile (smartphone, tablets etc.), le visite standard effettuate da desktop 
+e le visite effettuate dall'applicazione mobile di Wikipedia. Inoltre, su questi nuovi dataset viene effettuata anche 
+un'attività di filtraggio per eliminare tutto quel traffico non umano che è presente sulle voci di Wikipedia (spider, 
+crawlers etc.). L'utilizzo di un dataset più raffinato e meno "rumoroso" migliorerebbe sicuramente le prestazioni e 
+ridurrebbe le imprecisione dei modelli. 
+\bigskip
+
+Sarebbe anche interessante combinare i dati di Wikipedia con un altra fonte di informazioni per migliorare le capacità 
+predittive dei nostri modelli. Ad esempio, i dati delle prescrizioni mediche potrebbero essere di grande aiuto per stimare i 
+livelli di incidenza ILI in Italia. Intuitivamente, ad un aumento del consumo di certi farmaci corrisponde anche un aumento 
+della popolazione che assume quei farmaci per far fronte a determinati sintomi, ad esempio quelli influenzali. Esistono già 
+servizi che permettono di ottenere queste informazioni, ad esempio \textit{OpenPrescribing} (\textit{https://
+openprescribing.net/}) è permette di ottenere informazioni sulle prescrizioni mediche effettuate in 
+Inghilterra. Alcune nazioni invece mettono già a disposizione dati simili; ad esempio, la Danimarca fornisce dati sui 
+rimborsi delle prescrizioni mediche ed essi sarebbe una fonte di informazioni ottima per monitorare l'evolversi delle varie 
+patologie nel paese \cite{sigrun2012}.
+ 
+  
+
+
+\begin{figure}[p]
+\includegraphics[width=\textwidth]{chapter_3_correlation_linear}
+\caption{\textit{Variazione del valore di alcune feature rispetto all'incidenza ILI (i valori per essere comparati sono stati normalizzati nell'intervallo [0,1]).}}
+\label{fig:ch_3_correlation_linear}
+\centering
+\end{figure}
 
 \begin{figure}[p]
 \includegraphics[width=\textwidth]{chapter_3_correlation_poisson}
