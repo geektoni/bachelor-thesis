@@ -1,0 +1,67 @@
+\newpage
+
+\chapter{Conclusioni}
+\bigskip
+
+La nostra ipotesi iniziale può considerarsi parzialmente confermata da questi esperimenti. 
+I risultati espressi precedentemente mostrano come l'analisi e la stima dell'incidenza influenzale in Italia sia possibile.
+Da quanto è emerso, durante la stagione influenzale, la popolazione italiana tende a cercare su Wikipedia informazioni 
+riguardo ai sintomi e alle patologie ILI. Attraverso l'analisi della variazione del numero di visualizzazioni di certe voci 
+selezionate è possibile quindi risalire ad una stima di incidenza del virus influenzale nei cittadini. Questo metodo 
+permette anche di produrre delle stime di incidenza ILI in brevissimo tempo, senza incorrere in quelle due-tre settimane di ritardo che i metodi tradizionali di InfluNet comportano. 
+\bigskip 
+
+Il modello lineare ha evidenziato come esista questa relazione tra le pageview delle voci di Wikipedia, che descrivono 
+sintomi e caratteristiche della patologia influenzale, e i dati di incidenza della malattia forniti da InfluNet. Questo 
+risultato è interessante poiché è stato ottenuto analizzando un sistema (quello italiano) che presenta sostanziali differenze 
+rispetto al sistema delineato dallo studio di riferimento per questo progetto. Infatti, Wikipedia nella versione inglese 
+possiede numerose voci legate all'ambito \textit{Influenza} e un volume molto maggiore di traffico sulle varie pagine. 
+Inoltre, riguardo ai dati sull'incidenza di ILI, il CDC (\textit{Centre for Disease Control and Prevention}) americano 
+fornisce dati sull'incidenza della patologia influenzale che spaziano dalla quarantesima settimana fino alla trentacinquesima 
+dell'anno successivo, permettendo di avere un dataset più corposo con cui allenare i vari modelli.      
+\bigskip
+
+Oltretutto, possiamo anche affermare che Wikipedia rappresenta una fonte di dati affidabile che è possibile 
+utilizzare a scopi di ricerca. Il fatto che siano facilmente accessibili (sono forniti sotto licenza \textit{Creative 
+Commons}) e sempre aggiornati rappresentano alcuni dei punti di forza dei dataset forniti da Wikipedia.   
+\bigskip
+
+La validità di questo approccio lo rende anche idoneo ad essere utilizzato anche per prevedere l'incidenza di altre malattie. 
+Sarebbe infatti sufficiente identificare altre voci di Wikipedia, inerenti alla patologia di interesse, e monitorare il 
+numero di visite su quelle pagine (oltre ad ottenere dati precisi sull'incidenza della malattia selezionata che dovranno 
+essere forniti dagli organi sanitari nazionali o internazionali). Esistono già esempi di ciò, in particolare per malattie 
+come ebola, colera, dengue, HIV/AIDS e tubercolosi \cite{Generous2014}.
+\bigskip
+
+A differenza della maggior parte dei lavori precedentemente citati, tutti i dati (già formattati ed analizzabili) e il codice 
+python utilizzato per questo progetto sono liberamente disponibili in forma di software open source ( al seguente 
+indirizzo \textit{https://github.com/geektoni/Influenza-Like-Illness-Predictor} ). In questo modo, 
+anche le tecniche e le procedure pratiche per allenare e testare i vari modelli possono essere sottoposte ad analisi e 
+critica. Inoltre, grazie alla licenza permissiva utilizzata, tutto il lavoro può essere liberamente scaricato e utilizzato 
+anche da altri ricercatori. Ad esempio, i vari script realizzati possono essere anche facilmente adattati per eseguire
+analisi sull'incidenza di altre patologie.
+\bigskip
+
+Riguardo a sviluppi futuri di questo progetto è giusto segnalare che ci sono comunque diverse migliorie che si potrebbero 
+effettuare per renderlo più efficace. Come prima cosa sarà necessario incorporare nel dataset di 
+Wikipedia utilizzato per eseguire gli esperimenti i dati riguardanti gli accessi effettuati da dispositivi mobile. 
+Come già affermato nei capitoli precedenti, nei dati utilizzati per questo progetto essi non sono stati considerati. 
+Fortunatamente, dal maggio 2015 Wikipedia si è attivata per fornire informazioni più rifinite, rispetto a quelle che 
+attualmente possiede per l'intervallo 2007-2016. Infatti, essa ha iniziato a offrire dataset sempre più precisi che 
+comprendono: le visite effettuate da mobile (smartphone, tablet etc.), le visite standard effettuate da desktop e le visite 
+effettuate dall'applicazione mobile di Wikipedia. Viene effettuata anche un'attività di filtraggio per eliminare tutto quel 
+traffico non umano che è presente sulle voci di Wikipedia (spider, crawlers etc.). L'utilizzo di un dataset più raffinato e 
+meno "rumoroso" migliorerebbe sicuramente le prestazioni e ridurrebbe le imprecisione dei modelli. 
+\bigskip
+
+Sarebbe anche interessante combinare i dati di Wikipedia con un altra fonte di informazioni per migliorare le capacità 
+predittive dei nostri modelli. Ad esempio, i dati delle prescrizioni mediche potrebbero essere di grande aiuto per stimare i 
+livelli di incidenza ILI in Italia. Intuitivamente, ad un aumento del consumo di certi farmaci corrisponde anche un aumento 
+della popolazione che assume quei farmaci per far fronte a determinati sintomi, ad esempio quelli influenzali. Esistono già 
+servizi che permettono di ottenere queste informazioni, ad esempio \textit{OpenPrescribing} (\textit{https://
+openprescribing.net/}) permette di ottenere informazioni sulle prescrizioni mediche effettuate in 
+Inghilterra. Alcune nazioni invece mettono già a disposizione dati simili; ad esempio, la Danimarca fornisce dati sui 
+rimborsi delle prescrizioni mediche ed essi sarebbe una fonte di informazioni ottima per monitorare l'evolversi delle varie 
+patologie nel paese \cite{sigrun2012}.
+\bigskip
+
