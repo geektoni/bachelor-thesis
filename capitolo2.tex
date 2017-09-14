@@ -6,13 +6,13 @@ I metodi che sono stati selezionati per creare i modelli utilizzati negli esperi
 categoria che in machine learning viene chiamata \textit{apprendimento supervisionato}. Gli algoritmi appartenenti a questo 
 gruppo cercano di produrre una funzione $f_a$ che approssimi nel modo migliore un'altra funzione $f_b$ ignota, sulla base di
 una serie di dati di esempio (o \textit{osservazioni}) forniti. Attraverso l'utilizzo di questi dati di esempio, si suppone
-che l'algoritmo riesca ad accumulare abbastanza ``esperienza" in modo da fornirci un'approssimazione della funzione $f_b$. 
+che l'algoritmo riesca ad accumulare abbastanza ``esperienza" in modo da fornire un'approssimazione della funzione $f_b$. 
 \bigskip
 
 Dati $n$ esempi di \textit{training} (che corrispondono al nostro \textit{dataset}), nella forma $\{(y_1, \bm{x}_1), \ldots, (y_n, \bm{x}_n)\}$ dove $y_i$ è il valore associato all'$i$-esimo vettore di \textit{feature} $\bm{x}_i$, l'algoritmo cerca di 
 dedurre dalle osservazioni fornite una funzione $f: X \rightarrow Y$, dove $X$ è lo spazio delle \textit{feature} e $Y$ è lo 
 spazio del risultato (tale per cui $\forall \; y \in Y$). Questa funzione deve avere anche capacità di generalizzazione, cioè 
-deve essere in grado di fare delle previsioni anche utilizzando come input delle osservazioni che non erano presenti nel 
+deve essere in grado di fare delle previsioni corrette utilizzando come input delle osservazioni che non erano presenti nel 
 dataset di training.
 
 \section{Regressione Lineare}
@@ -33,10 +33,10 @@ rumore presente nella dipendenza tra la variabile indipendente e i regressori. I
 y_i = \sum_{j=0}^k x_j \cdot \beta_j + \epsilon = \bm{x\cdot\beta}+\epsilon \qquad i=0,1,2,\ldots ,n
 \end{equation}
 
-Utilizzando il dataset di \textit{training} dobbiamo "allenare" il modello in modo da stimare correttamente il valore del 
+Utilizzando il dataset di \textit{training} si deve "allenare" il modello in modo da stimare correttamente il valore del 
 vettore dei pesi $\bm{\beta}$. La tecnica più semplice e anche più frequentemente utilizzata è il \textit{metodo dei minimi 
-quadrati} (\textit{ordinary least square})\cite{dismuke2006ordinary}. Esso consiste nell'assegnare ai vari $\beta_i$ dei valori che minimizzino la 
-somma degli scarti quadratici:
+quadrati} (\textit{ordinary least square})\cite{dismuke2006ordinary}. Esso consiste nell'assegnare ai vari $\beta_i$ dei 
+valori che minimizzino una \textit{loss function}, rappresentata dalla somma degli scarti quadratici:
 \begin{equation}
 \min_{\bm{\beta}} \sum_{i=0}^n(y_i - \bm{x}_i\bm{\beta})^2
 \label{eq:OLS_residual}
@@ -54,7 +54,7 @@ la dimostrazione è la seguente:
 	\sum_{i=0}^n 2\cdot \left(\sum_{j=0}^m \left(x_{ij}\beta_j\right)-y_i\right)\cdot x_{ik} = 0 \\
 	\sum_{i=0}^n \bm{x}_{ik}\left(\bm{x}\bm{\beta}-y_i\right) =0 \label{eq:OLS_final}
 \end{gather}
-In forma matriciale, la formula \eqref{eq:OLS_final} può essere rappresentata come:
+Per facilitare le operazioni, si converte la formula \eqref{eq:OLS_final} in notazione matriciale:
 \begin{gather}
 	X^T \cdot \left( X \bm{\beta} - \bm{y} \right) = 0 \\
 	X^T X \bm{\beta} = X^T \bm{y}\\
@@ -79,12 +79,12 @@ della famiglia esponenziale (binomiale, poissoniana, gamma etc.). In questo lavo
 Un modello lineare generalizzato ha bisogno di tre componenti per essere definito correttamente:
 \begin{enumerate}
 \item Una funzione di distribuzione $f$ facente parte della famiglia esponenziale (in questo caso la funzione di densità di Poisson $p_{\theta}(x) = \frac{\theta^{x}}{x!}e^{-\theta}$);
-\item Un predittore lineare $\eta = \bm{x\beta}$, che tenga conto di tutte le variabili indipendenti $x_i$;
+\item Un predittore lineare $\eta = \bm{x\beta}$, che tenga conto di tutte le variabili indipendenti $\bm{x}_i$;
 \item Una funzione invertibile $g$ detta \textit{link function} (normalmente per Poisson viene utilizzato il logaritmo naturale). Questa funzione serve a trasformare il valore atteso della distribuzione $\mathbb{E}(y)$ nel predittore lineare $\eta$, cioè $g(\mathbb{E}(Y)) = \eta$ \label{itm:GML_def_3}.
 \end{enumerate}
 
-Di seguito riportiamo la procedura per stimare correttamente il vettore dei pesi $\bm{\beta}$ del regressore lineare $\eta$. 
-Dato un dataset con $n$ vettori di feature $x_i$, un insieme di variabili dipendenti 
+Di seguito si riporta la procedura per stimare correttamente il vettore dei pesi $\bm{\beta}$ del regressore lineare $\eta$. 
+Dato un dataset con $n$ vettori di feature $\bm{x}_i$, un insieme di variabili dipendenti 
 associate $y_i$, la probabilità di ottenere questo specifico dataset, dato un vettore di pesi $\bm{\beta}$ è:
 \begin{equation}
 p(y_1,\ldots,y_n | \bm{x}_1,\ldots,\bm{x}_n; \; \bm{\beta}) = \prod_{i=1}^n \frac{e^{\bm{\beta}\bm{x}_iy_i}}{y_i!}e^{-\bm{\beta}\bm{x}_i} \label{eq:GLM_Poisson}
@@ -92,7 +92,7 @@ p(y_1,\ldots,y_n | \bm{x}_1,\ldots,\bm{x}_n; \; \bm{\beta}) = \prod_{i=1}^n \fra
 Questo si può dedurre dalla funzione di densità della distribuzione di Poisson, con il parametro $\theta$ uguale a $e^{\bm{\beta}x_i}$. Si può facilmente dimostrare che $\theta=e^{\bm{\beta}x}$ utilizzando le definizioni precedenti dei modelli lineari generalizzati. Si può infatti notare che il valore atteso per una distribuzione di Poisson e proprio il parametro $\theta$, quindi, per la definizione \ref{itm:GML_def_3}, $\mathbb{E}(y) = \theta = g^{-1}(\eta)$.
 \bigskip
 
-Per stimare correttamente il vettore dei pesi necessario viene utilizzata la tecnica della \textit{maximum likelihood 
+Per stimare correttamente il vettore dei pesi viene utilizzata la tecnica della \textit{maximum likelihood 
 estimation}, che implica di identificare $\bm{\beta}$ in modo che la probabilità espressa da \eqref{eq:GLM_Poisson} sia
 massima. Prima di tutto, si riscrive \eqref{eq:GLM_Poisson} come una \textit{funzione di verosimiglianza}, $\mathcal{L}(\theta | X, Y)$, cioè:
 \begin{equation}
@@ -112,11 +112,12 @@ Eseguendo le dovute semplificazioni, la funzione di verosimiglianza da minimizza
 \section{Regolarizzazione}
 \bigskip
 
-Come abbiamo precedentemente detto, utilizzando vari stimatori (\textit{coordinate descent} e \textit{maximum likelihood}) 
-andiamo a stimare i valori dei pesi che andranno poi a formare il nostro regressore lineare. Nonostante tutto, questi metodi 
+Come si è precedentemente detto, utilizzando vari stimatori (\textit{coordinate descent} e \textit{maximum likelihood}) 
+si stimano i valori dei pesi che andranno poi a formare il nostro regressore lineare. Nonostante tutto, questi metodi 
 non sono privi di errori e possono incappare in problemi cosiddetti di \textit{overfitting}, causati principalmente da un 
 numero eccessivo di parametri rispetto al totale delle osservazioni. In questi casi, il modello potrebbe descrivere 
-perfettamente i dati del dataset di training, ma non essere comunque abbastanza generale da prevedere ulteriori dati di test (si veda l'esempio mostrato in Figura \ref{fig:ch_1_overfitting}). 
+perfettamente i dati del dataset di training, ma non essere comunque abbastanza generale da fornire previsioni corrette con 
+ulteriori dati di test (si veda l'esempio mostrato in Figura \ref{fig:ch_1_overfitting}). 
 Pertanto, all'interno delle funzioni da minimizzare precedentemente citate, in particolare \eqref{eq:OLS_minimize} e 
 \eqref{eq:GLM_minimize}, abbiamo inserito una penalità che ci permetterà di ottenere un modello meno sensibile 
 all'\textit{overfitting}. 
@@ -133,16 +134,16 @@ Questa tecnica è detta \textit{regolarizzazione} (o \textit{regularization}) e 
 regolarizzazione} $R(\bm{\beta})$ alla \textit{loss function}. Nel caso dei regressori lineari il \textit{termine di 
 regolarizzazione} imporrà una penalità sul vettore dei pesi che deve essere stimato.
 \begin{equation}
-\min_{\bm{\beta}} \sum_{i=1}^{n} (\bm{x}_i\bm{\beta} - y_i)^2 - \lambda R(\bm{\beta})
+\min_{\bm{\beta}} \sum_{i=1}^{n} (y_i - \bm{x}_i\bm{\beta})^2 - \lambda R(\bm{\beta})
 \end{equation}
 Il termine $\lambda$ controlla l'importanza della regolarizzazione.
 \bigskip
 
-La tecnica utilizzata in entrambi i modelli utilizzati in questo lavoro viene chiamata $\textit{LASSO}$, acronimo per 
+La tecnica utilizzata in entrambi i modelli proposti in questo lavoro viene chiamata $\textit{LASSO}$, acronimo per 
 \textit{Least Absolute Shrinkage and Selection Operator}. Essa serve a ridurre l'\textit{overfitting} e ad applicare 
 una selezione sulle varie feature disponibili. Infatti, un modello regolarizzato con LASSO tenderà ad assegnare un peso 
-positivo a poche feature, determinando così quali sono i regressori che contribuiscono in modo maggiore. Inoltre, la 
-regolarizzazione LASSO è indicato nei casi di multicollinerità, cioè quando due o più feature sono altamente correlate tra di 
+diverso da zero a poche feature, privilegiando i regressori che contribuiscono in modo maggiore. Inoltre, la 
+regolarizzazione LASSO è indicata nei casi di multicollinerità, cioè quando due o più feature sono altamente correlate tra di 
 loro (LASSO ne sceglie solo una ed evita di includere nel modello finale le altre, visto che non diminuirebbero l'entropia 
 del modello). Nel caso di \textit{LASSO}, il \textit{termine di regolarizzazione} corrisponde alla norma 1, cioè 
 $R(\bm{\beta}) = \norm{\bf{\beta}}_1 = \sum_{i=0}^k \beta_i$. 
@@ -153,13 +154,13 @@ In questo caso, le due \textit{loss function} \eqref{eq:GLM_minimize} e
 \min_{\bm{\beta}} -\sum_{i=1}^n (y_i\theta x_i - e^{\theta x_i} )  + \lambda\norm{\bm{\beta}}_1 \label{eq:GLM_LASSO}
 \end{gather}  
 
-Per stimare il parametro $\lambda$ abbiamo utilizzato la tecnica di \textit{cross-validation}. Essa consiste nel suddividere il 
-dataset in $k$ partizioni di uguale numerosità, $k-1$ verrano utilizzate per il \textit{training} mentre l'unica rimanente 
-verrà utilizzata per il \textit{testing}. La procedura viene poi ripetuta $k$ volte in modo che ogni partizione abbia sia 
-stata utilizzata come \textit{testing set}. Attraverso l'utilizzo di questo metodo possiamo avere maggiori informazioni su 
-come il modello finale si comporterà con dati nuovi (cioè quanto il modello è capace di generalizzare). Inoltre, questo 
-metodo permette appunto di stimare certi parametri del modello, in modo che il loro valore massimizzi le performance 
-dell'algoritmo (o minimizzino al meglio la \textit{loss function}).   
+Per stimare il parametro $\lambda$ si è utilizzata la tecnica di \textit{cross-validation}. Essa consiste nel suddividere il 
+dataset in $k$ partizioni disgiunte di uguale numerosità, $k-1$ verrano utilizzate per il \textit{training} mentre l'unica 
+rimanente verrà utilizzata per il \textit{testing}. La procedura viene poi ripetuta $k$ volte in modo che ogni partizione 
+sia stata utilizzata come \textit{testing set}. Attraverso l'utilizzo di questo metodo possiamo avere maggiori 
+informazioni su come il modello finale si comporterà con nuovi dati (cioè quanto il modello sarà in grado di generalizzare). 
+Inoltre, questo metodo permette appunto di stimare certi parametri del modello, in modo che il loro valore massimizzi le 
+performance dell'algoritmo (o minimizzino al meglio la \textit{loss function}).   
 
 \section{Implementazione}
 \bigskip
@@ -168,7 +169,7 @@ Per la realizzazione del codice, sono stati utilizzati due framework in Python c
 sopracitati. La suite \textit{scikit-learn} \cite{scikit-learn} ha fornito il modello lineare semplice, regolarizzato con 
 \textit{LASSO} e validato attraverso \textit{cross-validation}, chiamato \textit{LassoCV}. Per il modello lineare 
 generalizzato di Poisson è stato usato il framework \textit{glmnet} \cite{GLMNET} che ha fornito il metodo \textit{cvglmnet} 
-(anch'esso con \textit{LASSO}+\textit{cross-validation}). Entrambe le librerie utilizzate minimizzano funzioni che sono 
+(anch'esso con \textit{LASSO}+\textit{cross-validation}). Entrambe le librerie minimizzano funzioni che sono 
 leggermente diverse da quelle presentate precedentemente (in particolare \eqref{eq:OLS_LASSO} e \eqref{eq:GLM_LASSO}), che 
 però sono essenzialmente equivalenti ai fini dell'esperimento vero e proprio. 
 \begin{gather}
