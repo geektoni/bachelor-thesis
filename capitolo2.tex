@@ -94,18 +94,16 @@ Questo si può dedurre dalla funzione di densità della distribuzione di Poisson
 
 Per stimare correttamente il vettore dei pesi necessario viene utilizzata la tecnica della \textit{maximum likelihood 
 estimation}, che implica di identificare $\bm{\beta}$ in modo che la probabilità espressa da \eqref{eq:GLM_Poisson} sia
-massima. Prima di tutto, si riscrive \eqref{eq:GLM_Poisson} come una \textit{funzione di verosimiglianza}, $\mathcal{L}(\theta | X, Y)$. Un funzione di verosimiglianza (o \textit{likelihood function}) viene definita come:
+massima. Prima di tutto, si riscrive \eqref{eq:GLM_Poisson} come una \textit{funzione di verosimiglianza}, $\mathcal{L}(\theta | X, Y)$, cioè:
 \begin{equation}
-\mathcal{L}(\theta | x ) = p_{\theta}(x) = p_{\theta}(X=x)
+\mathcal{L}(\theta | X, Y) = p_{\theta}(x) = p_{\theta}(X=x)
 \end{equation}
 Quindi, nel caso di una variabile aleatoria di Poisson, la funzione di verosimiglianza diventa:
 \begin{equation}
 \mathcal{L}(\bm{\beta x}  | X, Y ) = \prod_{i=1}^n {e^{y_i \bm{\beta} x_i}-e^{-\bm{\beta} x_i}}{y_i!} \label{eq:GLM_Likelihood}
 \end{equation}
-Per semplificare i calcoli, spesso si utilizza una versione semplificata della funzione di verosimiglianza, la \textit{log-likelihood function}, $l(\theta | X, Y)$:
-\begin{equation}
-l(\bm{\beta x}  | X, Y) = \log{\mathcal{L}(\bm{\beta x}  | X, Y )}
-\end{equation}
+Per semplificare i calcoli, spesso si utilizza una versione semplificata della funzione di verosimiglianza, la \textit{log-likelihood function}, $l(\theta | X, Y)$ che corrisponde ad applicare il logaritmo naturale a \eqref{eq:GLM_Likelihood}, cioè 
+$l(\bm{\beta x}  | X, Y) = \log{\mathcal{L}(\bm{\beta x}  | X, Y )}$. 
 Eseguendo le dovute semplificazioni, la funzione di verosimiglianza da minimizzare (attraverso tecniche di \textit{gradient descent}) diventa quindi:
 \begin{equation}
 	\min_{\bm{\beta}} -\sum_{i=1}^n (y_i\bm{\beta} x_i - e^{\bm{\beta} x_i} ) \label{eq:GLM_minimize}
@@ -124,9 +122,9 @@ Pertanto, all'interno delle funzioni da minimizzare precedentemente citate, in p
 all'\textit{overfitting}. 
 \bigskip 
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 \centering
-\includegraphics[width=\textwidth]{chapter_1_overfitting_example}
+\includegraphics[scale=0.5]{chapter_1_overfitting_example}
 \caption{\textit{In questo esempio, stiamo cercando di trovare un polinomio che meglio approssima i punti del dataset. Il polinomio di grado 7, pur rappresentando esattamente i punti del dataset non ha capacità di generalizzazione, quindi nella pratica si tenderà ad utilizzare il polinomio di grado 1.}}
 \label{fig:ch_1_overfitting}
 \end{figure}
@@ -164,19 +162,17 @@ metodo permette appunto di stimare certi parametri del modello, in modo che il l
 dell'algoritmo (o minimizzino al meglio la \textit{loss function}).   
 
 \section{Implementazione}
+\bigskip
 
 Per la realizzazione del codice, sono stati utilizzati due framework in Python che possiedono l'implementazione dei metodi
 sopracitati. La suite \textit{scikit-learn} \cite{scikit-learn} ha fornito il modello lineare semplice, regolarizzato con 
 \textit{LASSO} e validato attraverso \textit{cross-validation}, chiamato \textit{LassoCV}. Per il modello lineare 
 generalizzato di Poisson è stato usato il framework \textit{glmnet} \cite{GLMNET} che ha fornito il metodo \textit{cvglmnet} 
-(anch'esso con \textit{LASSO}+\textit{cross-validation}). 
-\bigskip
-
-Entrambe le librerie utilizzate minimizzano funzioni che sono leggermente diverse da quelle presentate precedentemente (in 
-particolare \eqref{eq:OLS_LASSO} e \eqref{eq:GLM_LASSO}), che però sono essenzialmente equivalenti ai fini dell'esperimento 
-vero e proprio. 
+(anch'esso con \textit{LASSO}+\textit{cross-validation}). Entrambe le librerie utilizzate minimizzano funzioni che sono 
+leggermente diverse da quelle presentate precedentemente (in particolare \eqref{eq:OLS_LASSO} e \eqref{eq:GLM_LASSO}), che 
+però sono essenzialmente equivalenti ai fini dell'esperimento vero e proprio. 
 \begin{gather}
-	\min_{\bm{\beta}} \frac{1}{2n}\sum_{i=1}^n \norm{\bm{\beta} x_i -y_i}_{2}^2 + \lambda\norm{\bm{\beta}}_1 	\\
+	\min_{\bm{\beta}} \frac{1}{2n}\sum_{i=1}^n \norm{\bm{\beta} x_i -y_i}_{2}^2 + \lambda\norm{\bm{\beta}}_1 	\qquad
 	\min_{\bm{\beta}} -\frac{1}{n}\sum_{i=1}^n (y_i\bm{\beta} x_i - e^{\bm{\beta} x_i} ) + \lambda\norm{\bm{\beta}}_1
 \end{gather}
 

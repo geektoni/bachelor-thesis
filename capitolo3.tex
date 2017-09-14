@@ -160,6 +160,8 @@ rispetto ai semplici accessi via desktop).
 \section{Risultati del modello di Poisson}
 \bigskip
 
+Per valutare le prestazioni del modello di Poisson abbiamo proceduto come abbiamo fatto per il modello lineare, osservando 
+con quanta efficacia vengono previsti i picchi influenzali, il loro valore e l'andamento generale dell'incidenza ILI. 
 Nonostante nel paper di riferimento \cite{McIver2014} l'utilizzo di un modello generalizzato si sia rivelato efficace e 
 adatto a stimare i livelli di ILI, per l'Italia il modello di Poisson non ha mostrato significativi miglioramenti rispetto al 
 modello lineare, anzi in certi casi ha mostrato un calo di prestazioni. Come mostra la Tabella 
@@ -170,26 +172,35 @@ stagioni su nove, il modello tende in alcuni casi a sovrastimare in maniera abbo
 Riguardo invece alle feature utilizzate, osservando la Tabella \ref{tab:models_features}, si nota come il modello di 
 Poisson tenda a dare maggior peso a voci di Wikipedia che poco hanno a che fare con i sintomi della patologia influenzale. 
 Inoltre, i pesi assegnati hanno un entità molto minore rispetto a quelli del modello lineare e  
-l'andamento delle feature rispetto al valore dell'incidenza ILI non ha una corrispondenza così netta come nel caso del 
-modello lineare (Figura \ref{fig:ch_3_correlation_poisson}).
+l'andamento delle feature rispetto al valore dell'incidenza ILI non ha una corrispondenza così netta (Figura 
+\ref{fig:ch_3_correlation_poisson}).
 \bigskip
 
-Il modello è anche poco resistente agli outliers presenti nel dataset di Wikipedia. Infatti, come si nota dai 
+Il modello è anche poco resistente agli \textit{outliers} presenti nel dataset di Wikipedia. Infatti, come si nota dai 
 grafici in Figura \ref{fig:appendix_poisson}, nella sesta settimana del 2011 e
-nella terza e nona settimana del 2014, il modello stima dei valori di incidenza ILI molto alti rispetto ai dati Influnet.
-Questi sono per lo più causati da voci di Wikipedia che in quelle specifiche settimane hanno ricevuto un totale di visite
-che si discosta in maniera evidente dalla loro media settimanale (probabilmente a causa di alcuni bot).
+nella terza e nona settimana del 2014, il modello stima dei valori di incidenza ILI molto elevati, rispetto a quanto indicato 
+dai dati Influnet. Questi sono per lo più causati da voci di Wikipedia che in quelle specifiche settimane hanno ricevuto un 
+totale di visite che si discosta in maniera evidente dalla loro media settimanale (probabilmente a causa di alcuni bot).
 \bigskip 
 
-Abbiamo provato ad utilizzare il dataset composto da voci casuali e i risultati sono stati 
-gli stessi di quelli ottenuti con il modello lineare. Il modello generalizzato non riesce a prevedere con sufficiente 
-accuratezza ne i picchi influenzali, ne il normale andamento dell'incidenza ILI. 
-\bigskip 
+Per confermare comunque che questi risultati si ottengono soltanto quando si analizzano le voci di categoria medica di 
+Wikipedia, abbiamo provato ad utilizzare il dataset composto da voci casuali e l'esito è stato lo stesso di quello ottenuto 
+con il modello lineare. Il modello generalizzato non riesce a prevedere con sufficiente accuratezza ne i picchi influenzali, 
+ne il normale andamento dell'incidenza ILI. 
+\bigskip
 
-Queste basse prestazioni del modello di Poisson potrebbero essere spiegate con il fatto che la regressione di Poisson assume che la variabile aleatoria dipendente segua la distribuzione di Poisson. Questo porta con se una 
-condizione abbastanza restrittiva che implica che la sua media e la sua varianza devono essere uguali, cosa che non è sempre 
-vera nei dataset reali. Infatti, si può notare come in tutte le stagioni influenzali l'incidenza ILI tenda a seguire una 
-distribuzione normale, rendendo quindi difficile l'utilizzo di questo metodo per costruire un modello predittivo.
+Il modello di Poisson ha lo stesso comportamento del modello lineare per quanto riguarda le stagioni influenzali 2007-2008, 
+2014-2015 e 2015-2016. Le basse prestazioni in quei casi possono essere addotte alle stesse motivazioni presentate per il 
+modello lineare, cioè la mancanza di una parte significativa delle \textit{page view} dal dataset e con un numero troppo 
+elevato di predittori nulli.
+\bigskip
+
+Un altra motivo per cui le prestazioni non sono ottimali potrebbero essere il fatto che la regressione di Poisson assume 
+che la variabile aleatoria dipendente (cioè in questo caso il valore di incidenza ILI) segua la distribuzione di Poisson. 
+Questo porta con se una condizione abbastanza restrittiva che implica che la sua media e la sua varianza devono essere 
+uguali, cosa che non è sempre vera nei dataset reali. Infatti, si può notare come in tutte le stagioni influenzali 
+l'incidenza ILI tenda a seguire una distribuzione normale (che quindi è più adatta ad essere prevista con un semplice modello 
+lineare) rendendo quindi difficile l'utilizzo di questo metodo per costruire un modello predittivo.
 \bigskip
 
 \begin{figure}[h]
