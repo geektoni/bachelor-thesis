@@ -4,8 +4,8 @@
 \section{Risultati del modello lineare}
 \bigskip
 
-Per valutare le performance del modello lineare, oltre ai sistemi classici come l'\textit{errore quadratico medio}, abbiamo 
-cercato di misurare con che precisione il modello tende a predire il picco influenzale, cioè la settimana con la massima 
+Per valutare le performance del modello lineare, oltre ai sistemi classici come l'\textit{errore quadratico medio}, si è 
+cercato di misurare con quale precisione il modello tende a predire il picco influenzale, cioè la settimana con la massima 
 incidenza della patologia nella popolazione italiana. Come si può notare dalla Tabella \ref{tab:models_results}, nella metà 
 delle stagioni influenzali il modello lineare predice il picco entro una settimana indicata dai dati InfluNet; inoltre, nelle 
 stagioni 2008-2009, 2011-2012 e 2014-2015 il picco è previsto correttamente. Negli altri quattro casi il modello lineare 
@@ -15,23 +15,23 @@ tende ad anticipare la settimana del picco (stagioni 2007-2008, 2010-2011 e 2013
 Il modello lineare possiede una buona capacità predittiva anche nel caso della stagione influenzale 2009-2010, che fu 
 particolarmente grave poiché ci fu una vera e propria epidemia causata dalla varietà H1N1 del virus influenzale. Il picco in 
 questo caso è spostato verso le ultime settimane del 2009 (dalla numero 42 alla 52) e non corrisponde all'andamento 
-classico della patologia (si nota molto bene dalla Figura \ref{fig:ch_2_ILI_levels}). Inoltre, quell'anno c'era stata una 
-grande copertura mediatica riguardo all'epidemia, cosa che avrebbe potuto in qualche modo aggiungere rumore ai dati del 
-dataset. Nonostante ciò, il modello riesce a prevedere il picco della stagione correttamente (con uno scarto di una 
+classico della patologia (si nota molto bene dalla Figura \ref{fig:ch_2_ILI_levels}). Inoltre, quell'anno si era registrata 
+un'importante copertura mediatica riguardo all'epidemia che avrebbe potuto in qualche modo aggiungere rumore ai dati 
+del dataset. Nonostante ciò, il modello riesce a prevedere il picco della stagione correttamente (con uno scarto di una 
 settimana).
 \bigskip
 
-Abbiamo anche cercato di individuare quali feature siano più importanti per la previsione dei valori di incidenza. Ci siamo 
+Si è cercato di individuare quali feature siano più importanti per la previsione dei valori di incidenza. Ci si è 
 soffermati su quelle voci di Wikipedia che sono presenti più volte in tutti i modelli e quali di esse avessero il più grande 
-peso $\beta_i$ associato. Attraverso l'utilizzo di LASSO abbiamo potuto ridurre considerevolmente il numero di feature che 
+peso $\beta_i$ associato. Attraverso l'utilizzo di LASSO si è potuto ridurre considerevolmente il numero di feature che 
 effettivamente giocano un ruolo nella previsione dell'incidenza, infatti, da 470 feature, i modelli ne andavano 
 ad utilizzare in media 111 (con utilizzare si intende che veniva assegnato loro un peso $\beta_i \neq 0$). 
 \bigskip
 
 La Tabella \ref{tab:models_features} mostra le prime 5 feature con peso medio maggiore e in quanti modelli 
 esse siano presenti. Come si può notare, sono voci di Wikipedia legate ai sintomi influenzali (la voce con più alto 
-peso medio riguarda la patologia \textit{Febbre}). Poiché quasi nel 100\% dei modelli abbiamo le stesse feature, e poiché 
-esse danno il contributo più grande nel determinare il livello di incidenza influenzale, possiamo supporre che anche 
+peso medio riguarda la patologia \textit{Febbre}). Poiché quasi nel 100\% dei modelli si hanno le stesse feature, e poiché 
+esse danno il contributo più grande nel determinare il livello di incidenza influenzale, si può supporre che anche 
 l'andamento delle pageview di queste voci rispecchi l'andamento dei dati InfluNet e che quindi pageview ed InfluNet siano in 
 qualche modo correlati.
 \bigskip
@@ -145,7 +145,7 @@ corretta;
 \item Nel caso delle stagioni 2014-2015 e 2015-2016, la causa può essere imputata principalmente alla mancanza di una 
 variazione significativa dei valori delle pageview per le voci selezionate dal modello. In sostanza, a differenza del 
 2012-2013, in cui l'andamento delle voci seguiva quello dell'incidenza ILI, nel 2014-2015 e 2015-2016 ciò non succede. 
-Questo potrebbe essere causato dalla mancanza nel dataset di informazioni riguardanti gli accessi tramite dispositivi mobile 
+Questo potrebbe essere causato dalla mancanza nel dataset di informazioni riguardanti gli accessi tramite dispositivi mobili 
 che, se aggiunte, potrebbero migliorare le prestazioni (che come si è detto nel capitolo precedente, ora sono maggioritarie 
 rispetto ai semplici accessi via desktop).
 \end{itemize}
@@ -197,7 +197,7 @@ elevato di predittori nulli.
 
 Un altra motivo per cui le prestazioni non sono ottimali potrebbero essere il fatto che la regressione di Poisson assume 
 che la variabile aleatoria dipendente (cioè in questo caso il valore di incidenza ILI) segua la distribuzione di Poisson. 
-Questo porta con se una condizione abbastanza restrittiva che implica che la sua media e la sua varianza devono essere 
+Questo porta con sé una condizione abbastanza restrittiva che implica che la sua media e la sua varianza devono essere 
 uguali, cosa che non è sempre vera nei dataset reali. Infatti, si può notare come in tutte le stagioni influenzali 
 l'incidenza ILI tenda a seguire una distribuzione normale (che quindi è più adatta ad essere prevista con un semplice modello 
 lineare) rendendo quindi difficile l'utilizzo di questo metodo per costruire un modello predittivo.
