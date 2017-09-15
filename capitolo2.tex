@@ -85,7 +85,7 @@ Un modello lineare generalizzato ha bisogno di tre componenti per essere definit
 
 Di seguito si riporta la procedura per stimare correttamente il vettore dei pesi $\bm{\beta}$ del regressore lineare $\eta$. 
 Dato un dataset con $n$ vettori di feature $\bm{x}_i$, un insieme di variabili dipendenti 
-associate $y_i$, la probabilità di ottenere questo specifico dataset, dato un vettore di pesi $\bm{\beta}$ è:
+associate $y_i$, la probabilità di ottenere la sequenza di valori $y_i$, dati i valori del dataset $\bm{x}_i$ e dato il vettore di pesi $\bm{\beta}$ è:
 \begin{equation}
 p(y_1,\ldots,y_n | \bm{x}_1,\ldots,\bm{x}_n; \; \bm{\beta}) = \prod_{i=1}^n \frac{e^{\bm{\beta}\bm{x}_iy_i}}{y_i!}e^{-\bm{\beta}\bm{x}_i} \label{eq:GLM_Poisson}
 \end{equation}
