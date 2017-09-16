@@ -44,9 +44,9 @@ influenzali 2009-2010 e 2011-2012.
 \bigskip
 
 Per verificare che questa relazione tra le pageview e l'incidenza ILI in Italia si presenti solo con pagine legate all'ambito 
-medico, in particolare con pagine legate alla patologia influenzale, abbiamo provato ad 
+medico, in particolare con pagine legate alla patologia influenzale, si è provato ad 
 utilizzare il dataset formato da voci estratte casualmente da Wikipedia per allenare il modello lineare, con le stesse 
-modalità con cui abbiamo usato quello reale. Come ci aspettavamo, utilizzando le pagine casuali, il modello non riesce ad 
+modalità con cui si è usato quello reale. Come ci aspettavamo, utilizzando le pagine casuali, il modello non riesce ad 
 effettuare previsioni coerenti con InfluNet. In certe stagioni influenzali, il modello non riesce neppure a convergere ad una 
 soluzione e molto spesso alla quasi totalità delle 470 feature non viene assegnato nessun peso $\beta_i$ diverso da zero. Ciò 
 significa che probabilmente non esiste una relazione lineare tra le pageview del dataset casuale e l'incidenza InfluNet, a 
@@ -160,7 +160,7 @@ rispetto ai semplici accessi via desktop).
 \section{Risultati del modello di Poisson}
 \bigskip
 
-Per valutare le prestazioni del modello di Poisson abbiamo proceduto come abbiamo fatto per il modello lineare, osservando 
+Per valutare le prestazioni del modello di Poisson si è proceduto come si è fatto per il modello lineare, osservando 
 con quanta efficacia vengono previsti i picchi influenzali, il loro valore e l'andamento generale dell'incidenza ILI. 
 Nonostante nel paper di riferimento \cite{McIver2014} l'utilizzo di un modello generalizzato si sia rivelato efficace e 
 adatto a stimare i livelli di ILI, per l'Italia il modello di Poisson non ha mostrato significativi miglioramenti rispetto al 
@@ -181,10 +181,12 @@ grafici in Figura \ref{fig:appendix_poisson}, nella sesta settimana del 2011 e
 nella terza e nona settimana del 2014, il modello stima dei valori di incidenza ILI molto elevati, rispetto a quanto indicato 
 dai dati Influnet. Questi sono per lo più causati da voci di Wikipedia che in quelle specifiche settimane hanno ricevuto un 
 totale di visite che si discosta in maniera evidente dalla loro media settimanale (probabilmente a causa di alcuni bot).
+Un altro valore di picco molto elevato viene rilevato nella quarantacinquesima settimana del 2010 che però non è 
+rappresentata in Figura \ref{fig:appendix_poisson} (per consentire una maggiore leggibilità del grafico).
 \bigskip 
 
 Per confermare comunque che questi risultati si ottengono soltanto quando si analizzano le voci di categoria medica di 
-Wikipedia, abbiamo provato ad utilizzare il dataset composto da voci casuali e l'esito è stato lo stesso di quello ottenuto 
+Wikipedia, si è provato ad utilizzare il dataset composto da voci casuali e l'esito è stato lo stesso di quello ottenuto 
 con il modello lineare. Il modello generalizzato non riesce a prevedere con sufficiente accuratezza ne i picchi influenzali, 
 ne il normale andamento dell'incidenza ILI. 
 \bigskip
